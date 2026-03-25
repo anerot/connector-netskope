@@ -160,7 +160,8 @@ def create_url_list(config, params):
 
 def apply_url_list(config, params):
     ob = Netskope(config)
-    response = ob.make_rest_call("/policy/urllist/deploy", "POST")
+    endpoint = "/policy/urllist/deploy"
+    response = ob.make_rest_call(endpoint=endpoint, method="POST")
     return response
 
 
