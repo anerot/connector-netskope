@@ -1,0 +1,577 @@
+{
+  "name": "netskope",
+  "label": "Netskope",
+  "description": "Netskope provides smart cloud security which controls activities across any cloud service or website and provides 360-degree data and threat protection that works everywhere. This connector facilitates automated operations like get alerts list, get events list, and urls related operations.",
+  "publisher": "Fortinet",
+  "cs_approved": false,
+  "cs_compatible": true,
+  "version": "2.0.0",
+  "category": "Network Security",
+  "icon_large_name": "large.png",
+  "icon_small_name": "small.png",
+  "help_online": "https://docs.fortinet.com/document/fortisoar/2.0.0/netskope/1020/netskope-v2-0-0",
+  "ingestion_supported": false,
+  "configuration": {
+    "fields": [
+      {
+        "title": "Server URL",
+        "description": "Specify the server URL to connect and perform the automated operations.",
+        "tooltip": "Specify the server URL to connect and perform the automated operations.",
+        "name": "server_url",
+        "required": true,
+        "editable": true,
+        "visible": true,
+        "type": "text"
+      },
+      {
+        "title": "API Token",
+        "description": "Specify the API token to connect and perform the automated operations.",
+        "tooltip": "Specify the API token to connect and perform the automated operations.",
+        "name": "api_token",
+        "required": true,
+        "visible": true,
+        "editable": true,
+        "type": "password"
+      },
+      {
+        "title": "Verify SSL",
+        "name": "verify_ssl",
+        "description": "Specifies whether the SSL certificate for the server is to be verified. By default, this option is selected, i.e., set to true.",
+        "tooltip": "Specifies whether the SSL certificate for the server is to be verified. By default, this option is selected, i.e., set to true.",
+        "required": false,
+        "visible": true,
+        "editable": true,
+        "type": "checkbox",
+        "value": true
+      }
+    ]
+  },
+  "operations": [
+    {
+      "operation": "get_alerts_list",
+      "title": "Get Alerts List",
+      "description": "Retrieves a detailed list of alerts based on the query, alert type, and other filter criteria that you have specified.",
+      "annotation": "get_alerts_list",
+      "category": "investigation",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Query",
+          "description": "(Optional) Specify a query to filter the records retrieved from Netskope.",
+          "tooltip": "Specify a query to filter the records retrieved from Netskope.",
+          "name": "query",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "placeholder": "For e.g alert_name like 'test'"
+        },
+        {
+          "title": "Alert Type",
+          "description": "(Optional) Select the alert type to filter the records retrieved from Netskope. You can choose from the following options: Anomaly, Compromised Credential, Policy, Legal Hold, Malsite, etc.",
+          "tooltip": "Select the alert type to filter the records retrieved from Netskope. You can choose from the following options: Anomaly, Compromised Credential, Policy, Legal Hold, Malsite, etc.",
+          "name": "type",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "select",
+          "options": [
+            "Anomaly",
+            "Compromised Credential",
+            "Policy",
+            "Legal Hold",
+            "Malsite",
+            "Malware",
+            "DLP",
+            "Security Assessment",
+            "WatchList",
+            "Quarantine",
+            "Remediation",
+            "UBA"
+          ]
+        },
+        {
+          "title": "Acknowledged Alerts",
+          "description": "(Optional) Select this option to retrieve acknowledged alerts from Netskope.",
+          "tooltip": "Select this option to retrieve acknowledged alerts from Netskope.",
+          "name": "acked",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "checkbox"
+        },
+        {
+          "title": "Start DateTime",
+          "name": "starttime",
+          "type": "datetime",
+          "description": "(Optional) Select the start date and time for the duration to filter the records from Netskope, retrieving those greater than or equal to the specified time. NOTE: Do not use this parameter in combination with Insertion Start DateTime and Insertion End DateTime.",
+          "tooltip": "Select the start date and time for the duration to filter the records from Netskope, retrieving those greater than or equal to the specified time. NOTE: Do not use this parameter in combination with Insertion Start DateTime and Insertion End DateTime.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "End DateTime",
+          "name": "endtime",
+          "type": "datetime",
+          "description": "(Optional) Select the end date and time for the duration to filter the records from Netskope, retrieving those less than or equal to the specified time. NOTE: Do not use this parameter in combination with Insertion Start DateTime and Insertion End DateTime.",
+          "tooltip": "Select the end date and time for the duration to filter the records from Netskope, retrieving those less than or equal to the specified time. NOTE: Do not use this parameter in combination with Insertion Start DateTime and Insertion End DateTime.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Insertion Start DateTime",
+          "name": "insertionstarttime",
+          "type": "datetime",
+          "description": "(Optional) Select the insertion start date and time for the duration to filter the records from Netskope, retrieving those greater than or equal to the specified time. NOTE: Do not use this parameter in combination with Start DateTime and End DateTime.",
+          "tooltip": "Select the insertion start date and time for the duration to filter the records from Netskope, retrieving those greater than or equal to the specified time. NOTE: Do not use this parameter in combination with Start DateTime and End DateTime.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Insertion End DateTime",
+          "name": "insertionendtime",
+          "type": "datetime",
+          "description": "(Optional) Select the insertion end date and time for the duration to filter the records from Netskope, retrieving those less than or equal to the specified time. NOTE: Do not use this parameter in combination with Start DateTime and End DateTime.",
+          "tooltip": "Select the insertion end date and time for the duration to filter the records from Netskope, retrieving those less than or equal to the specified time. NOTE: Do not use this parameter in combination with Start DateTime and End DateTime.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Limit",
+          "description": "(Optional) Specify the maximum number of records to return in response. NOTE: API responses can include up to 5000 alerts per response. You can use pagination to fetch additional results.",
+          "tooltip": "Specify the maximum number of records to return in response. NOTE: API responses can include up to 5000 alerts per response. You can use pagination to fetch additional results.",
+          "name": "limit",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "integer"
+        },
+        {
+          "title": "Offset",
+          "description": "(Optional) Specify the number of records to skip when retrieving records from Netskope. Default value is 0.",
+          "tooltip": "Specify the number of records to skip when retrieving records from Netskope. Default value is 0.",
+          "name": "offset",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "integer"
+        }
+      ],
+      "output_schema": {}
+    },
+    {
+      "operation": "get_events_list",
+      "title": "Get Events List",
+      "description": "Retrieves a detailed list of events based on the query, event type, and other filter criteria that you have specified.",
+      "annotation": "get_events_list",
+      "category": "investigation",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Event Type",
+          "description": "Select the event type to filter the records retrieved from Netskope. You can choose from the following: Page, Application, Audit, Infrastructure, or Network.",
+          "tooltip": "Select the event type to filter the records retrieved from Netskope. You can choose from the following: Page, Application, Audit, Infrastructure, or Network.",
+          "name": "type",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "select",
+          "options": [
+            "Page",
+            "Application",
+            "Audit",
+            "Infrastructure",
+            "Network"
+          ]
+        },
+        {
+          "title": "Query",
+          "description": "(Optional) Specify a query to filter the records retrieved from Netskope.",
+          "tooltip": "Specify a query to filter the records retrieved from Netskope.",
+          "name": "query",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "placeholder": "For e.g app eq Dropbox"
+        },
+        {
+          "title": "Start DateTime",
+          "name": "starttime",
+          "type": "datetime",
+          "description": "(Optional) Select the start date and time for the duration to filter the records from Netskope, retrieving those greater than or equal to the specified time. NOTE: Do not use this parameter in combination with Insertion Start DateTime and Insertion End DateTime.",
+          "tooltip": "Select the start date and time for the duration to filter the records from Netskope, retrieving those greater than or equal to the specified time. NOTE: Do not use this parameter in combination with Insertion Start DateTime and Insertion End DateTime.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "End DateTime",
+          "name": "endtime",
+          "type": "datetime",
+          "description": "(Optional) Select the end date and time for the duration to filter the records from Netskope, retrieving those less than or equal to the specified time. NOTE: Do not use this parameter in combination with Insertion Start DateTime and Insertion End DateTime.",
+          "tooltip": "Select the end date and time for the duration to filter the records from Netskope, retrieving those less than or equal to the specified time. NOTE: Do not use this parameter in combination with Insertion Start DateTime and Insertion End DateTime.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Insertion Start DateTime",
+          "name": "insertionstarttime",
+          "type": "datetime",
+          "description": "(Optional) Select the insertion start date and time for the duration to filter the records from Netskope, retrieving those greater than or equal to the specified time. NOTE: Do not use this parameter in combination with Start DateTime and End DateTime.",
+          "tooltip": "Select the insertion start date and time for the duration to filter the records from Netskope, retrieving those greater than or equal to the specified time. NOTE: Do not use this parameter in combination with Start DateTime and End DateTime.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Insertion End DateTime",
+          "name": "insertionendtime",
+          "type": "datetime",
+          "description": "(Optional) Select the insertion end date and time for the duration to filter the records from Netskope, retrieving those less than or equal to the specified time. NOTE: Do not use this parameter in combination with Start DateTime and End DateTime.",
+          "tooltip": "Select the insertion end date and time for the duration to filter the records from Netskope, retrieving those less than or equal to the specified time. NOTE: Do not use this parameter in combination with Start DateTime and End DateTime.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Limit",
+          "description": "(Optional) Specify the maximum number of records to return in response. NOTE: API responses can include up to 5000 events per response. You can use pagination to fetch additional results.",
+          "tooltip": "Specify the maximum number of records to return in response. NOTE: API responses can include up to 5000 events per response. You can use pagination to fetch additional results.",
+          "name": "limit",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "integer"
+        },
+        {
+          "title": "Offset",
+          "description": "(Optional) Specify the number of records to skip when retrieving records from Netskope. Default value is 0.",
+          "tooltip": "Specify the number of records to skip when retrieving records from Netskope. Default value is 0.",
+          "name": "offset",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "integer"
+        }
+      ],
+      "output_schema": {}
+    },
+    {
+      "operation": "create_url_list",
+      "title": "Create URL List",
+      "description": "Creates an URL blocked-list in Netskope based on the list name, list type, and the URLs that you have specified.",
+      "annotation": "create_url_list",
+      "category": "investigation",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "URL List Name",
+          "description": "Specify the name of the list to create the URL blocked-list in Netskope.",
+          "tooltip": "Specify the name of the list to create the URL blocked-list in Netskope.",
+          "name": "name",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text"
+        },
+        {
+          "title": "URL List Type",
+          "description": "Specify the format for entering URLs in the URLs parameter. Possible values are exact and regex.",
+          "tooltip": "Specify the format for entering URLs in the URLs parameter. Possible values are exact and regex.",
+          "name": "type",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "placeholder": "For e.g exact or regex"
+        },
+        {
+          "title": "URLs",
+          "description": "Specify a comma-separated list of URLs — if the URL List Type is exact — and specify a comma-separated list of regex — if the URL List Type is regex — to create the URL blocked-list in Netskope.",
+          "tooltip": "Specify a comma-separated list of URLs — if the URL List Type is exact — and specify a comma-separated list of regex — if the URL List Type is regex — to create the URL blocked-list in Netskope.",
+          "name": "urls",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "placeholder": "For e.g linkedin.com,facebook.com,instagram.com,twitter.com, ^client[0-9]\\.google\\.com, ^google.com etc."
+        }
+      ],
+      "output_schema": {}
+    },
+    {
+      "operation": "get_url_list",
+      "title": "Get All URL List",
+      "description": "Retrieves a detailed list of URL blocked-list based on the pending and comma-separated field parameters that you have specified.",
+      "annotation": "get_url_list",
+      "category": "investigation",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Pending",
+          "description": "(Optional) Specify to filter and retrieve URL blocked-lists from Netskope based on their processing status. • Specify 1 to retrieve URL lists that are awaiting approval or processing. • Specify 0 to retrieve lists that have been fully processed or finalized",
+          "tooltip": "Specify to filter and retrieve URL blocked-lists from Netskope based on their processing status. • Specify 1 to retrieve URL lists that are awaiting approval or processing. • Specify 0 to retrieve lists that have been fully processed or finalized",
+          "name": "pending",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "integer"
+        },
+        {
+          "title": "Field",
+          "description": "(Optional) Specify comma-separated list of fields to filter and retrieve URL blocked-lists from Netskope.",
+          "tooltip": "Specify comma-separated list of fields to filter and retrieve URL blocked-lists from Netskope.",
+          "name": "field",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "text"
+        }
+      ],
+      "output_schema": {}
+    },
+    {
+      "operation": "get_url_list_details",
+      "title": "Get URL List Details",
+      "description": "Retrieves a detailed for specific URL blocked-list based on the URL list ID that you have specified.",
+      "annotation": "get_url_list_details",
+      "category": "investigation",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "URL List ID",
+          "description": "Specify the ID of the URL blocked-list whose details you want to retrieve details from Netskope.",
+          "tooltip": "Specify the ID of the URL blocked-list whose details you want to retrieve details from Netskope.",
+          "name": "url_list_id",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text"
+        }
+      ],
+      "output_schema": {}
+    },
+    {
+      "operation": "add_url_list",
+      "title": "Add URL List",
+      "description": "Appends a URL blocked-list in Netskope based on the URL list ID, list type, and URLs that you have specified.",
+      "annotation": "add_url_list",
+      "category": "investigation",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "URL List ID",
+          "description": "Specify the ID of the URL blocked-list in which to append the URLs for blocking in Netskope.",
+          "tooltip": "Specify the ID of the URL blocked-list in which to append the URLs for blocking in Netskope.",
+          "name": "url_list_id",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text"
+        },
+        {
+          "title": "URL List Type",
+          "description": "(Optional) Specify the format for entering URLs in the URLs parameter. Possible values are exact and regex.",
+          "tooltip": "Specify the format for entering URLs in the URLs parameter. Possible values are exact and regex.",
+          "name": "type",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "placeholder": "For e.g. exact or regex"
+        },
+        {
+          "title": "URLs",
+          "description": "(Optional) Specify a comma-separated list of URLs — if the URL List Type is exact — and specify a comma-separated list of regex — if the URL List Type is regex — to append the URLs to this URL list in Netskope.",
+          "tooltip": "Specify a comma-separated list of URLs — if the URL List Type is exact — and specify a comma-separated list of regex — if the URL List Type is regex — to append the URLs to this URL list in Netskope.",
+          "name": "urls",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "placeholder": "For e.g linkedin.com,facebook.com,instagram.com,twitter.com, ^client[0-9]\\.google\\.com, ^google.com etc."
+        }
+      ],
+      "output_schema": {}
+    },
+    {
+      "operation": "update_url_list",
+      "title": "Update URL List",
+      "description": "Updates a URL blocked-list in Netskope based on the URL list ID, list type, and URLs that you have specified.",
+      "annotation": "update_url_list",
+      "category": "investigation",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "URL List ID",
+          "description": "Specify the ID of the URL blocked-list in which to update the URLs for blocking in Netskope.",
+          "tooltip": "Specify the ID of the URL blocked-list in which to update the URLs for blocking in Netskope.",
+          "name": "url_list_id",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text"
+        },
+        {
+          "title": "URL List Name",
+          "description": "(Optional) Specify the name of the list to update in Netskope.",
+          "tooltip": "Specify the name of the list to update in Netskope.",
+          "name": "name",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "text"
+        },
+        {
+          "title": "URL List Type",
+          "description": "(Optional) Specify the format for entering URLs in the URLs parameter. Possible values are exact and regex.",
+          "tooltip": "Specify the format for entering URLs in the URLs parameter. Possible values are exact and regex.",
+          "name": "type",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "placeholder": "For e.g. exact or regex"
+        },
+        {
+          "title": "URLs",
+          "description": "Specify a comma-separated list of URLs — if the URL List Type is exact — and specify a comma-separated list of regex — if the URL List Type is regex — with which to replace the existing URL list in Netskope.",
+          "tooltip": "Specify a comma-separated list of URLs — if the URL List Type is exact — and specify a comma-separated list of regex — if the URL List Type is regex — with which to replace the existing URL list in Netskope.",
+          "name": "urls",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "placeholder": "For e.g linkedin.com,facebook.com,instagram.com,twitter.com, ^client[0-9]\\.google\\.com, ^google.com etc."
+        }
+      ],
+      "output_schema": {}
+    },
+    {
+      "operation": "delete_url_list",
+      "title": "Delete URL List",
+      "description": "Deletes a specific URL blocked-list from Netskope based on the URL list ID you have specified.",
+      "annotation": "delete_url_list",
+      "category": "investigation",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "URL List ID",
+          "description": "Specify the ID of the URL list which to delete from Netskope.",
+          "tooltip": "Specify the ID of the URL list which to delete from Netskope.",
+          "name": "url_list_id",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text"
+        }
+      ],
+      "output_schema": {}
+    },
+    {
+      "operation": "get_client_list",
+      "title": "Get Client List",
+      "description": "Retrieves a detailed list of SCIM users based on the filter query and other pagination parameters that you have specified.",
+      "annotation": "get_client_list",
+      "category": "investigation",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Filter",
+          "description": "(Optional) Specify the query to filter retrieved data from Netskope.",
+          "tooltip": "Specify the query to filter retrieved data from Netskope.",
+          "name": "filter",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "placeholder": "For e.g key eq value"
+        },
+        {
+          "title": "Limit",
+          "description": "(Optional) Specify the maximum number of records to return in response. Default value is 50.",
+          "tooltip": "Specify the maximum number of records to return in response. Default value is 50.",
+          "name": "count",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "integer"
+        },
+        {
+          "title": "Offset",
+          "description": "(Optional) Specify the number of records to skip when retrieving records from Netskope. Default value is 0.",
+          "tooltip": "Specify the number of records to skip when retrieving records from Netskope. Default value is 0.",
+          "name": "startIndex",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "integer"
+        }
+      ],
+      "output_schema": {}
+    },
+    {
+      "operation": "send_custom_request",
+      "title": "Execute an API Request",
+      "annotation": "send_custom_request",
+      "description": "Sends an API request to any API endpoint based on specified HTTP method, endpoint, and other input parameters that you have specified, enabling flexible API interactions tailored to user needs.",
+      "category": "investigation",
+      "visible": true,
+      "enabled": true,
+      "parameters": [
+        {
+          "name": "method",
+          "title": "HTTP Method",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "description": "Select an HTTP action for the request. You can select from the following options:  \n\nDELETE \n\nGET \n\nPATCH \n\nPOST \n\nPUT ",
+          "options": [
+            "DELETE",
+            "GET",
+            "PATCH",
+            "POST",
+            "PUT"
+          ]
+        },
+        {
+          "title": "Endpoint",
+          "name": "endpoint",
+          "tooltip": "Specify the target API URL path for the request. For example, if the website is https://example.com and URL path is https://example.com/api/v2/incidents/search, the endpoint would be /api/v2/incidents/search.",
+          "description": "Specify the target API URL path for the request. For example, if the website is https://example.com and URL path is https://example.com/api/v2/incidents/search, the endpoint would be /api/v2/incidents/search.",
+          "type": "text",
+          "visible": true,
+          "editable": true,
+          "required": true,
+          "placeholder": "For e.g /events/dataexport/events/incident"
+        },
+        {
+          "title": "Query Parameters",
+          "name": "query_params",
+          "description": "(Optional) Specify any optional parameters to add to the URL and refine the request.",
+          "type": "json",
+          "visible": true,
+          "editable": true,
+          "required": false
+        },
+        {
+          "name": "payload",
+          "title": "Request Payload",
+          "type": "json",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "description": "(Optional) Specify data, as JSON, to be sent as the request payload (typically for POST or PUT requests)."
+        }
+      ],
+      "output_schema": {}
+    }
+  ]
+}
